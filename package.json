@@ -23,6 +23,11 @@
   "homepage": "https://github.com/fraxken/npm-git-issues#readme",
   "devDependencies": {
     "@slimio/eslint-config": "^1.1.8",
+    "@types/node": "^10.12.2",
     "eslint": "^5.8.0"
+  },
+  "dependencies": {
+    "@octokit/rest": "^15.16.1",
+    "got": "^9.3.1"
   }
 }
