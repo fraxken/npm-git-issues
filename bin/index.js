@@ -3,6 +3,8 @@
 // Require Third-party Dependencies
 const got = require("got");
 const chalk = require("chalk");
+const program = require("commander");
+
 const octokit = require("@octokit/rest")({
     timeout: 0,
     headers: {
@@ -10,6 +12,21 @@ const octokit = require("@octokit/rest")({
         "user-agent": "octokit/rest.js v1.2.3"
     }
 });
+
+function titleToRegex(val) {
+    if (typeof val === "string") {
+        return new RegExp(val, "g");
+    }
+
+    return /.*/g;
+}
+
+program
+    .option("-t, --title [value]", "An optional value", titleToRegex)
+    .option("-l, --labels", "Enable Labels in issues output")
+    .parse(process.argv);
+
+const { title, labels = false } = program;
 
 // 1. Retrieve npm project name
 const [npmProjectName] = process.argv.slice(2);
@@ -54,16 +71,22 @@ async function main() {
             };
         });
 
+        console.log("");
         for (const issue of issues) {
-            console.log(`#${issue.id} (${chalk.yellow(issue.author)}) ${chalk.green(issue.title)}`);
-            for (const label of [...issue.labels]) {
-                const color = chalk.hex(`#${label.color}`);
-                process.stdout.write(`${color.bold(label.name)}, `);
+            if (!title.test(issue.title)) {
+                continue;
             }
-            if (issue.labels.size > 0) {
-                process.stdout.write("\n");
+            console.log(`[by ${chalk.yellow(issue.author)}] ${chalk.green(issue.title)}`);
+            if (labels) {
+                for (const label of [...issue.labels]) {
+                    const color = chalk.hex(`#${label.color}`);
+                    process.stdout.write(`${color.bold(label.name)} `);
+                }
+                if (issue.labels.size > 0) {
+                    process.stdout.write("\n");
+                }
             }
-            console.log(`${chalk.cyan(issue.url)}\n`);
+            console.log(`${chalk.magenta(issue.url)}\n`);
         }
     }
     catch (error) {

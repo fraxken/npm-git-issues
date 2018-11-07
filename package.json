@@ -1,6 +1,6 @@
 {
   "name": "npm-git-issues",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "NPM CLI to retrieve a given npm package github issues",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "url": "git+https://github.com/fraxken/npm-git-issues.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "GENTILHOMME Thomas <gentilhomme.thomas@gmail.fr>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fraxken/npm-git-issues/issues"
@@ -29,6 +29,7 @@
   "dependencies": {
     "@octokit/rest": "^15.16.1",
     "chalk": "^2.4.1",
+    "commander": "^2.19.0",
     "got": "^9.3.1"
   }
 }
