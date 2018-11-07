@@ -22,7 +22,7 @@ function titleToRegex(val) {
 }
 
 program
-    .option("-t, --title [value]", "An optional value", titleToRegex)
+    .option("-t, --title [value]", "Title regex (default equal to .*)", titleToRegex)
     .option("-l, --labels", "Enable Labels in issues output")
     .parse(process.argv);
 
