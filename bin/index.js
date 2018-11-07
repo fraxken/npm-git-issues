@@ -2,6 +2,7 @@
 
 // Require Third-party Dependencies
 const got = require("got");
+const chalk = require("chalk");
 const octokit = require("@octokit/rest")({
     timeout: 0,
     headers: {
@@ -43,12 +44,27 @@ async function main() {
 
         const issues = rawResult.data.items.map((row) => {
             return {
+                id: row.id,
                 title: row.title,
                 url: row.url,
+                labels: new Set(row.labels.map((label) => {
+                    return { name: label.name, color: label.color };
+                })),
                 author: row.user.login
             };
         });
-        console.log(issues);
+
+        for (const issue of issues) {
+            console.log(`#${issue.id} (${chalk.yellow(issue.author)}) ${chalk.green(issue.title)}`);
+            for (const label of [...issue.labels]) {
+                const color = chalk.hex(`#${label.color}`);
+                process.stdout.write(`${color.bold(label.name)}, `);
+            }
+            if (issue.labels.size > 0) {
+                process.stdout.write("\n");
+            }
+            console.log(`${chalk.cyan(issue.url)}\n`);
+        }
     }
     catch (error) {
         console.error(`Failed to found issues on reposity: ${org}/${project}`);
