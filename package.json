@@ -1,6 +1,6 @@
 {
   "name": "npm-git-issues",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "NPM CLI to retrieve a given npm package github issues",
   "main": "index.js",
   "scripts": {
