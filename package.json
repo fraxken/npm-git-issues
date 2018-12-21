@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/fraxken/npm-git-issues#readme",
   "devDependencies": {
-    "@types/node": "^10.12.2",
+    "@types/node": "^10.12.18",
     "eslint": "^5.8.0"
   },
   "dependencies": {
