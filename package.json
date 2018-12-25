@@ -28,8 +28,8 @@
   },
   "dependencies": {
     "@octokit/rest": "^15.18.1",
-    "chalk": "^2.4.1",
     "commander": "^2.19.0",
-    "got": "^9.5.0"
+    "got": "^9.5.0",
+    "kleur": "^3.0.1"
   }
 }

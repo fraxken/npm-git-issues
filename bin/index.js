@@ -2,7 +2,7 @@
 
 // Require Third-party Dependencies
 const got = require("got");
-const chalk = require("chalk");
+const kleur = require("kleur");
 const program = require("commander");
 
 const octokit = require("@octokit/rest")({
@@ -74,17 +74,16 @@ function printIssues(issues) {
         if (!title.test(issue.title)) {
             continue;
         }
-        console.log(`[by ${chalk.yellow(issue.author)}] ${chalk.green(issue.title)}`);
+        console.log(`[by ${kleur.yellow(issue.author)}] ${kleur.green(issue.title)}`);
         if (labels) {
             for (const label of [...issue.labels]) {
-                const color = chalk.hex(`#${label.color}`);
-                process.stdout.write(`${color.bold(label.name)} `);
+                process.stdout.write(label.name);
             }
             if (issue.labels.size > 0) {
                 process.stdout.write("\n");
             }
         }
-        console.log(`${chalk.magenta(issue.url)}\n`);
+        console.log(`${kleur.cyan(issue.url)}\n`);
     }
 }
 
