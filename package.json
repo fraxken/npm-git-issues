@@ -24,7 +24,7 @@
   "devDependencies": {
     "@slimio/eslint-config": "^2.0.3",
     "@types/node": "^10.12.18",
-    "eslint": "^5.10.0"
+    "eslint": "^5.11.0"
   },
   "dependencies": {
     "commander": "^2.19.0",
