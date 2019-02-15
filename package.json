@@ -29,7 +29,7 @@
   "dependencies": {
     "@octokit/rest": "^16.15.0",
     "commander": "^2.19.0",
-    "got": "^9.5.0",
+    "got": "^9.6.0",
     "kleur": "^3.0.1"
   }
 }
