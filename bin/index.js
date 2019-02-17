@@ -7,10 +7,10 @@ const program = require("commander");
 
 const octokit = require("@octokit/rest")({
     timeout: 0,
-    headers: {
-        accept: "application/vnd.github.v3+json",
-        "user-agent": "octokit/rest.js v1.2.3"
-    }
+    userAgent: "octokit/rest.js v1.2.3"
+    // headers: {
+    //     accept: "application/vnd.github.v3+json"
+    // }
 });
 
 /**
@@ -31,7 +31,7 @@ program
     .version("0.1.0", "-v, --version")
     .option("-t, --title [value]", "Title regex (default equal to .*)", titleToRegex)
     .option("-l, --labels", "Enable Labels in issues output")
-    .option("-t, --token [value]", "GitHub token")
+    .option("-a, --auth [value]", "GitHub token")
     .parse(process.argv);
 
 const { title = /.*/g, labels = false, token } = program;
@@ -97,7 +97,7 @@ async function main() {
     const [,,, org, project] = payload.bugs.url.split("/");
 
     try {
-        const rawResult = await octokit.search.issues({
+        const rawResult = await octokit.search.issuesAndPullRequests({
             q: `repo:${org}/${project} is:issue is:open`,
             sort: "updated",
             order: "desc"
