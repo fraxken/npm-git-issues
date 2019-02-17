@@ -4,13 +4,10 @@
 const got = require("got");
 const kleur = require("kleur");
 const program = require("commander");
-
+const asTable = require("as-table");
 const octokit = require("@octokit/rest")({
     timeout: 0,
     userAgent: "octokit/rest.js v1.2.3"
-    // headers: {
-    //     accept: "application/vnd.github.v3+json"
-    // }
 });
 
 /**
@@ -34,7 +31,7 @@ program
     .option("-a, --auth [value]", "GitHub token")
     .parse(process.argv);
 
-const { title = /.*/g, labels = false, token } = program;
+const { title: matchTitle = /.*/g, labels = false, token } = program;
 if (typeof token === "string") {
     octokit.authenticate({ type: "token", token });
 }
@@ -70,21 +67,26 @@ async function findNPMPackageInRegistry(npmProjectName) {
  */
 function printIssues(issues) {
     console.log("");
-    for (const issue of issues) {
-        if (!title.test(issue.title)) {
+    const data = [];
+    for (const { author, title, url } of issues) {
+        if (!matchTitle.test(title)) {
             continue;
         }
-        console.log(`[by ${kleur.yellow(issue.author)}] ${kleur.green(issue.title)}`);
-        if (labels) {
-            for (const label of [...issue.labels]) {
-                process.stdout.write(label.name);
-            }
-            if (issue.labels.size > 0) {
-                process.stdout.write("\n");
-            }
-        }
-        console.log(`${kleur.cyan(issue.url)}\n`);
+        data.push({
+            author: kleur.yellow(author),
+            title: title.length < 50 ? title : `${title.substr(0, 50)}...`,
+            url: kleur.cyan(url)
+        });
+        // if (labels) {
+        //     for (const label of [...issue.labels]) {
+        //         process.stdout.write(label.name);
+        //     }
+        //     if (issue.labels.size > 0) {
+        //         process.stdout.write("\n");
+        //     }
+        // }
     }
+    console.log(asTable(data));
 }
 
 /**
@@ -117,6 +119,7 @@ async function main() {
         }));
     }
     catch (error) {
+        console.error(error.message);
         console.error(`Failed to found issues on reposity: ${org}/${project}`);
         process.exit(0);
     }
