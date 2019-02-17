@@ -1,7 +1,7 @@
 # npm-git-issues
+![V0.4.0](https://img.shields.io/badge/version-0.4.0-blue.svg)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/fraxken/npm-git-issues/commit-activity)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
-![V1.0](https://img.shields.io/badge/version-0.3.0-blue.svg)
 
 NPM CLI to retrieve a given npm package github issues
 
