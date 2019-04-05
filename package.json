@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^16.23.2",
-    "as-table": "^1.0.36",
+    "as-table": "^1.0.38",
     "commander": "^2.19.0",
     "got": "^9.6.0",
     "kleur": "^3.0.2"
