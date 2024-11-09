@@ -27,7 +27,7 @@
     "eslint": "^5.16.0"
   },
   "dependencies": {
-    "@octokit/rest": "^16.23.2",
+    "@octokit/rest": "^17.0.0",
     "as-table": "^1.0.38",
     "commander": "^2.20.0",
     "got": "^9.6.0",
